@@ -16,4 +16,4 @@ export { default as Pyramid } from './Charts/Pyramid';
 export { default as Stacked } from './Charts/Stacked';
 export { default as EmpDashboard } from './EmpDashboard';
 export {default as MarketingAgency} from './MarketingAgency';
-
+export {default as AddLeads} from './AddLeads';
