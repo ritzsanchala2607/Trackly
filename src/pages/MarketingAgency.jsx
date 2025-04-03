@@ -2,6 +2,7 @@ import React from 'react';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+import { Link } from "react-router-dom";
 
 import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
 import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData, employeesData, employeesGrid } from '../data/dummy';
@@ -27,7 +28,7 @@ function MarketingAgency() {
     <div>
       <div className="mt-7">
         <div className="flex flex-wrap lg:flex-nowrap justify-end gap-x-4 mr-5">
-          <Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" />
+          <Link to="/addlead"><Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" /></Link>
         </div>
         <div className="flex m-3 flex-wrap justify-evenly gap-1 items-center">
             {earningData.map((item) => (
@@ -51,7 +52,7 @@ function MarketingAgency() {
         </div>
       <div>
         <LineChart />
-        <Stacked />
+            <Stacked />
       </div>
     </div>
     </div>
