@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddLeadsForm = () => {
+const AddLeads = () => {
   const [formData, setFormData] = useState({
     name: "",
     date: "",
@@ -79,4 +79,4 @@ const AddLeadsForm = () => {
   );
 };
 
-export default AddLeadsForm;
+export default AddLeads;
