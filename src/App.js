@@ -4,10 +4,11 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { EmpDashboard ,Ecommerce,MarketingAgency,AddLeads,AddEmployee ,Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor} from './pages';
+import { EmpDashboard , Ecommerce,MarketingAgency,AddLeads,AddEmployee ,Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor} from './pages';
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
+import Login from './pages/Login';
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -76,6 +77,7 @@ const App = () => {
                 <Route path="/agency" element={<MarketingAgency />} />
                 <Route path="/addlead" element={<AddLeads />} />
                 <Route path="/addemployee" element={<AddEmployee />} />
+                <Route path="/login" element={<Login />} />
 
                 {/* apps  */}
                 <Route path="/kanban" element={<Kanban />} />
