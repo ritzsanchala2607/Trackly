@@ -3,13 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { Navbar, Footer, ThemeSettings } from './components';
+import { Navbar, Footer, ThemeSettings, AntTable } from './components';
 import {
     EmpDashboard,
     Ecommerce,
     MarketingAgency,
     AddLeads,
     AddEmployee,
+    LeadsTable,
     Orders,
     Calendar,
     Employees,
@@ -117,6 +118,9 @@ const App = () => {
         /> <
         Route path = "/addemployee"
         element = { < AddEmployee / > }
+        /> <
+        Route path = "/temptable"
+        element = { < LeadsTable / > }
         /> <
         Route path = "/login"
         element = { < Login / > }

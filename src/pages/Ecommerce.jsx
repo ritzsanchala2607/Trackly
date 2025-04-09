@@ -30,7 +30,7 @@ const Ecommerce = () => {
           <Link to="/addlead"><Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" /></Link>
           <Link to="/calendar"><Button color="white" bgColor={currentColor} text="My Calender" borderRadius="10px" /></Link>
       </div>
-      <div className="flex m-3 flex-wrap justify-evenly gap-1 items-center">
+      <div className="flex m-3 flex-wrap justify-between gap-1 items-center ml-20 mr-20">
       {earningData.map((item) => (
         <div key={item.title} className="bg-white h-44 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56  p-4 pt-9 rounded-2xl ">
           <button

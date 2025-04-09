@@ -18,3 +18,4 @@ export { default as EmpDashboard } from './EmpDashboard';
 export {default as MarketingAgency} from './MarketingAgency';
 export {default as AddLeads} from './AddLeads';
 export {default as AddEmployee} from './AddEmployee';
+export {default as LeadsTable} from './LeadsTable';
