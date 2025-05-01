@@ -1,7 +1,22 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, { useState } from 'react';
+import { Table, Select, Button } from 'antd';
+
+const { Option } = Select;
 
 const LeadsTable = () => {
+  const [assignments, setAssignments] = useState({});
+
+  const handleAssign = (key) => {
+    console.log(`Assigned ${assignments[key]} to lead with key ${key}`);
+    // TODO: Add logic to save to database or backend
+  };
+
+  const handleChange = (value, key) => {
+    setAssignments({ ...assignments, [key]: value });
+  };
+
+  const availableUsers = ['John Doe', 'Anna Smith', 'Vikram Joshi', 'Grace Kimani', 'Lukas Bauer'];
+
   const columns = [
     {
       title: 'Name',
@@ -26,8 +41,29 @@ const LeadsTable = () => {
     },
     {
       title: 'Assigned To',
-      dataIndex: 'assignedTo',
       key: 'assignedTo',
+      render: (_, record) => (
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Select
+            defaultValue={record.assignedTo}
+            style={{ width: 150 }}
+            onChange={(value) => handleChange(value, record.key)}
+          >
+            {availableUsers.map((user) => (
+              <Option key={user} value={user}>
+                {user}
+              </Option>
+            ))}
+          </Select>
+          <Button
+            type="primary"
+            style={{ backgroundColor: '#1890ff', borderColor: '#1890ff', color: '#fff',padding: '0 12px' }}
+            onClick={() => handleAssign(record.key)}
+          >
+            Assign
+          </Button>
+        </div>
+      ),
     },
   ];
 
@@ -76,7 +112,6 @@ const LeadsTable = () => {
 
   return (
     <div style={{ padding: 24 }}>
-      <h2 style={{ marginBottom: 16 }}>New Leads</h2>
       <Table
         columns={columns}
         dataSource={data}
