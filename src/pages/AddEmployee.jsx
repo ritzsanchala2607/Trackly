@@ -1,69 +1,148 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const AddEmployee = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    username: "",
-    password: "",
-    role: "",
+    empId: '',
+    name: '',
+    email: '',
+    password: '',
+    joiningDate: '',
+    role: '',
+    phone: '',
+    district: ''
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Employee Data Submitted:", formData);
+    console.log(formData);
+    // API logic here
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '8px',
+    border: '1px solid #ccc',
+    borderRadius: '4px'
+  };
+
+  const labelStyle = {
+    fontWeight: 'bold',
+    display: 'block',
+    marginBottom: '5px'
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form 
-        onSubmit={handleSubmit} 
-        className="bg-white p-6 rounded-lg shadow-md w-[500px] border border-gray-300"
-      >
-        <h2 className="text-center text-xl font-semibold mb-4">Add Employee</h2>
-        
-        <label className="block font-semibold">Email:</label>
-        <input 
-          type="email" 
-          name="email" 
-          value={formData.email} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-2"
-        />
-        
-        <label className="block font-semibold">Username:</label>
-        <input 
-          type="text" 
-          name="username" 
-          value={formData.username} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-2"
-        />
-        
-        <label className="block font-semibold">Password:</label>
-        <input 
-          type="password" 
-          name="password" 
-          value={formData.password} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-2"
-        />
-        
-        <label className="block font-semibold">Role:</label>
-        <input 
-          type="text" 
-          name="role" 
-          value={formData.role} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-4"
-        />
-        
-        <button 
-          type="submit" 
-          className="bg-blue-500 text-white p-2 rounded w-full"
+    <div style={{ maxWidth: '600px', margin: '40px auto' }}>
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>Employee ID:</label>
+          <input
+            type="text"
+            name="empId"
+            value={formData.empId}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>Employee Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>Joining Date:</label>
+          <input
+            type="date"
+            name="joiningDate"
+            value={formData.joiningDate}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>Role:</label>
+          <select
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            style={inputStyle}
+          >
+            <option value="">Select Role</option>
+            <option value="Admin">Admin</option>
+            <option value="Employee">Employee</option>
+            <option value="Marketing Agency">Marketing Agency</option>
+          </select>
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>Phone Number:</label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label style={labelStyle}>District:</label>
+          <input
+            type="text"
+            name="district"
+            value={formData.district}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+        </div>
+
+        <button
+          type="submit"
+          style={{
+            width: '100%',
+            padding: '10px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            marginTop: '10px'
+          }}
         >
           Submit
         </button>

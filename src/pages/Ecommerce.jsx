@@ -29,6 +29,7 @@ const Ecommerce = () => {
   return (
     <div className="mt-7">
       <div className="flex flex-wrap lg:flex-nowrap justify-end gap-x-4 mr-5">
+          <Link to="/addemployee"><Button color="white" bgColor={currentColor} text="Add Employee" borderRadius="10px" /></Link>
           <Link to="/addlead"><Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" /></Link>
           <Link to="/calendar"><Button color="white" bgColor={currentColor} text="My Calender" borderRadius="10px" /></Link>
       </div>
@@ -51,6 +52,11 @@ const Ecommerce = () => {
           <p className="text-sm text-gray-400  mt-1">{item.title}</p>
         </div>
       )).slice(-4)}
+
+
+
+
+      
       </div>
 
       {/* New Leads Table */}
