@@ -22,8 +22,8 @@
 
 ## Tech Stack
 
-- **Frontend**: HTML, CSS, JavaScript  
-- **Backend**: PHP  
-- **Database**: SQL  
+- **Frontend**: `React,js`  
+- **Backend**: `Node.js`, `Express.js`  
+- **Database**: `SQL`  
 - **Tools**: Visual Studio Code
 
