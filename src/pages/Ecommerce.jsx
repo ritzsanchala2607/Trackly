@@ -1,13 +1,13 @@
+import { Link } from "react-router-dom";
 import React from 'react';
-import { GoPrimitiveDot } from 'react-icons/go';
+import { GoDotFill  } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
-import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
-import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData, employeesData, employeesGrid } from '../data/dummy';
 import { GridComponent, Inject, ColumnsDirective, ColumnDirective, Search, Page } from '@syncfusion/ej2-react-grids';
+import { Stacked, Pie, Button, LineChart, SparkLine, Header } from '../components';
+import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData, employeesData, employeesGrid } from '../data/dummy';
 
-import { Header } from '../components';
 import { useStateContext } from '../contexts/ContextProvider';
 import product9 from '../data/product9.jpg';
 
@@ -26,28 +26,28 @@ const Ecommerce = () => {
   return (
     <div className="mt-7">
       <div className="flex flex-wrap lg:flex-nowrap justify-end gap-x-4 mr-5">
-          <Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" />
-          <Button color="white" bgColor={currentColor} text="Add Emp" borderRadius="10px" />
+        <Link to="/addlead"><Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" /></Link>
+        <Link to="/addlead"><Button color="white" bgColor={currentColor} text="Add Emp" borderRadius="10px" /></Link>
       </div>
       <div className="flex m-3 flex-wrap justify-evenly gap-1 items-center">
-      {earningData.map((item) => (
-        <div key={item.title} className="bg-white h-44 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56  p-4 pt-9 rounded-2xl ">
-          <button
-            type="button"
-            style={{ color: item.iconColor, backgroundColor: item.iconBg }}
-            className="text-2xl opacity-0.9 rounded-full  p-4 hover:drop-shadow-xl"
-          >
-            {item.icon}
-          </button>
-          <p className="mt-3">
-            <span className="text-lg font-semibold">{item.amount}</span>
-            <span className={`text-sm text-${item.pcColor} ml-2`}>
-              {item.percentage}
-            </span>
-          </p>
-          <p className="text-sm text-gray-400  mt-1">{item.title}</p>
-        </div>
-      )).slice(-4)}
+        {earningData.map((item) => (
+          <div key={item.title} className="bg-white h-44 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56  p-4 pt-9 rounded-2xl ">
+            <button
+              type="button"
+              style={{ color: item.iconColor, backgroundColor: item.iconBg }}
+              className="text-2xl opacity-0.9 rounded-full  p-4 hover:drop-shadow-xl"
+            >
+              {item.icon}
+            </button>
+            <p className="mt-3">
+              <span className="text-lg font-semibold">{item.amount}</span>
+              <span className={`text-sm text-${item.pcColor} ml-2`}>
+                {item.percentage}
+              </span>
+            </p>
+            <p className="text-sm text-gray-400  mt-1">{item.title}</p>
+          </div>
+        )).slice(-4)}
       </div>
 
       {/* New Leads Table */}
@@ -81,13 +81,13 @@ const Ecommerce = () => {
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                 <span>
-                  <GoPrimitiveDot />
+                  <GoDotFill  />
                 </span>
                 <span>Expense</span>
               </p>
               <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
                 <span>
-                  <GoPrimitiveDot />
+                  <GoDotFill  />
                 </span>
                 <span>Budget</span>
               </p>
