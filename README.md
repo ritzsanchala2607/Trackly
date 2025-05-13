@@ -24,6 +24,6 @@
 
 - **Frontend**: `React,js`  
 - **Backend**: `Node.js`, `Express.js`  
-- **Database**: `SQL`  
+- **Database**: `PostgreSQL`  
 - **Tools**: Visual Studio Code
 
