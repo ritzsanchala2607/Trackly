@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { FiSettings } from "react-icons/fi";
-import { TooltipComponent } from "@syncfusion/ej2-react-popups";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { FiSettings } from 'react-icons/fi';
+import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { Navbar, Footer, ThemeSettings, Sidebar } from "./components";
+import { Navbar, Footer, ThemeSettings, Sidebar } from './components';
 import {
   EmpDashboard,
   Ecommerce,
@@ -26,17 +26,17 @@ import {
   ColorPicker,
   ColorMapping,
   Editor,
-} from "./pages";
+} from './pages';
 
-import "./App.css";
-import { useStateContext } from "./contexts/ContextProvider";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import LeadDetail from "./pages/LeadDetail";
+import './App.css';
+import { useStateContext } from './contexts/ContextProvider';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import LeadDetail from './pages/LeadDetail';
 
 const AppContent = () => {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/login";
+  const isLoginPage = location.pathname === '/login';
   const {
     setCurrentColor,
     setCurrentMode,
@@ -50,8 +50,8 @@ const AppContent = () => {
   const [selectedLead] = useState(null);
 
   useEffect(() => {
-    const currentThemeColor = localStorage.getItem("colorMode");
-    const currentThemeMode = localStorage.getItem("themeMode");
+    const currentThemeColor = localStorage.getItem('colorMode');
+    const currentThemeMode = localStorage.getItem('themeMode');
     if (currentThemeColor && currentThemeMode) {
       setCurrentColor(currentThemeColor);
       setCurrentMode(currentThemeMode);
@@ -63,7 +63,7 @@ const AppContent = () => {
   }
 
   return (
-    <div className={currentMode === "Dark" ? "dark" : ""}>
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <div className="flex relative dark:bg-main-dark-bg">
         {activeMenu ? (
           <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
@@ -81,7 +81,7 @@ const AppContent = () => {
             <button
               type="button"
               onClick={() => setThemeSettings(true)}
-              style={{ background: currentColor, borderRadius: "50%" }}
+              style={{ background: currentColor, borderRadius: '50%' }}
               className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
             >
               <FiSettings />
@@ -92,7 +92,7 @@ const AppContent = () => {
         {/* Main Content without Sidebar */}
         <div
           className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full ${
-            activeMenu ? "md:ml-72" : "flex-2"
+            activeMenu ? 'md:ml-72' : 'flex-2'
           }`}
         >
           <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
@@ -107,8 +107,9 @@ const AppContent = () => {
             <Routes>
               {/* Dashboard */}
               <Route path="/" element={<Ecommerce />} />
-              <Route path="/ecommerce" element={<Ecommerce />} />
+              <Route path="/admindashboard" element={<Ecommerce />} />
               <Route path="/empdashboard" element={<EmpDashboard />} />
+              <Route path="/madashboard" element={<EmpDashboard />} />
 
               {/* Pages */}
               <Route path="/orders" element={<Orders />} />
@@ -117,10 +118,7 @@ const AppContent = () => {
               <Route path="/agency" element={<MarketingAgency />} />
               <Route path="/addlead" element={<AddLeads />} />
               <Route path="/addemployee" element={<AddEmployee />} />
-              <Route
-                path="/leaddetails"
-                element={<LeadDetail leadData={selectedLead} />}
-              />
+              <Route path="/leaddetails" element={<LeadDetail leadData={selectedLead} />} />
               <Route path="/temptable" element={<LeadsTable />} />
 
               {/* Apps */}

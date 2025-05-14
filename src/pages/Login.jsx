@@ -1,14 +1,72 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [token, setToken] = useState('No Token');
+  const [role, setRole] = useState('');
+
+  const fetchSession = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/api/user/get-token', {
+        withCredentials: true,
+      });
+
+      setToken(res.data.token);
+
+      const userData = await axios.get('http://localhost:3000/api/user/get-user', {
+        headers: { authorization: `Bearer ${token}` },
+        withCredentials: true,
+      });
+
+      setRole(userData.user.role);
+    } catch (error) {
+      setToken('Error');
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ email, password, rememberMe });
+    const payload = {
+      email,
+      password,
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/api/user/login`, payload, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        // eslint-disable-next-line no-alert
+        alert(res.data.message);
+        setEmail('');
+        setPassword('');
+        fetchSession();
+
+        if (role === 'Admin') {
+          navigate('/admindashboard');
+        } else if (role === 'Employee') {
+          navigate('/empdashboard');
+        } else if (role === 'Marketing Agency') {
+          navigate('/madashboard');
+        } else {
+          navigate('/login');
+        }
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+        // eslint-disable-next-line no-alert
+        alert('Something went wrong during registration.');
+      });
     // Handle authentication logic here
   };
 
@@ -30,10 +88,7 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             {/* Email Field */}
             <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email Address
                 <input
                   id="email"
@@ -51,15 +106,9 @@ const Login = () => {
             <div className="mb-4">
               <div className="flex justify-between items-center mb-1">
                 {/* eslint-disable jsx-a11y/label-has-associated-control */}
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
-                  <a
-                    href="/signup"
-                    className="text-xs text-blue-600 hover:text-blue-800"
-                  >
+                  <a href="/signup" className="text-xs text-blue-600 hover:text-blue-800">
                     Forgot Password?
                   </a>
                 </label>
@@ -67,7 +116,7 @@ const Login = () => {
               <div className="relative">
                 <input
                   id="password"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -81,12 +130,7 @@ const Login = () => {
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? (
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -95,12 +139,7 @@ const Login = () => {
                       />
                     </svg>
                   ) : (
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -121,10 +160,7 @@ const Login = () => {
 
             {/* Remember Me Checkbox */}
             <div className="flex items-center mb-6">
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-700"
-              >
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
                 <input
                   id="remember-me"
                   type="checkbox"
@@ -148,9 +184,7 @@ const Login = () => {
           {/* Divider */}
           <div className="relative flex items-center mt-8">
             <div className="flex-grow border-t border-gray-300" />
-            <span className="flex-shrink mx-4 text-gray-500 text-sm">
-              Or continue with
-            </span>
+            <span className="flex-shrink mx-4 text-gray-500 text-sm">Or continue with</span>
             <div className="flex-grow border-t border-gray-300" />
           </div>
 
@@ -193,11 +227,8 @@ const Login = () => {
 
           {/* Sign Up Link */}
           <p className="text-center mt-8 text-sm text-gray-600">
-            Don&apos;t have an account?{" "}
-            <a
-              href="/signup"
-              className="text-blue-600 hover:text-blue-800 font-medium"
-            >
+            Don&apos;t have an account?{' '}
+            <a href="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
               Sign up
             </a>
           </p>
