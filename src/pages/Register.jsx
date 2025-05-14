@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    user_name: '',
-    name: '',
-    email: '',
-    phone: '',
-    role: '',
-    district: '',
-    password: '',
+    user_name: "",
+    name: "",
+    email: "",
+    phone: "",
+    role: "",
+    district: "",
+    password: "",
   });
 
   const [rememberMe, setRememberMe] = useState(false);
@@ -45,7 +45,10 @@ const Register = () => {
           <form onSubmit={handleSubmit}>
             {/* Email Field */}
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Email Address
                 <input
                   id="email"
@@ -61,7 +64,10 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="user_name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="user_name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 User Name
                 <input
                   id="user_name"
@@ -77,7 +83,10 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Full Name
                 <input
                   id="name"
@@ -93,7 +102,10 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Phone No
                 <input
                   id="phone"
@@ -109,7 +121,10 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="role"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Role
                 <select
                   id="role"
@@ -131,10 +146,17 @@ const Register = () => {
             {/* Password Field */}
             <div className="mb-4">
               <div className="flex justify-between items-center mb-1">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                {/* eslint-disable jsx-a11y/label-has-associated-control */}
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Password
                 </label>
-                <a href="#" className="text-xs text-blue-600 hover:text-blue-800">
+                <a
+                  href="/signup"
+                  className="text-xs text-blue-600 hover:text-blue-800"
+                >
                   Forgot Password?
                 </a>
               </div>
@@ -142,7 +164,7 @@ const Register = () => {
                 <input
                   id="password"
                   name="password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -155,7 +177,12 @@ const Register = () => {
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? (
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -164,7 +191,12 @@ const Register = () => {
                       />
                     </svg>
                   ) : (
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -193,7 +225,10 @@ const Register = () => {
                 className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white"
               />
               {/* eslint-disable jsx-a11y/label-has-associated-control */}
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-700"
+              >
                 Remember me
               </label>
               {/* eslint-disable jsx-a11y/label-has-associated-control */}
@@ -211,7 +246,9 @@ const Register = () => {
           {/* Divider */}
           <div className="relative flex items-center mt-8">
             <div className="flex-grow border-t border-gray-300" />
-            <span className="flex-shrink mx-4 text-gray-500 text-sm">Or continue with</span>
+            <span className="flex-shrink mx-4 text-gray-500 text-sm">
+              Or continue with
+            </span>
             <div className="flex-grow border-t border-gray-300" />
           </div>
 
@@ -254,8 +291,11 @@ const Register = () => {
 
           {/* Sign Up Link */}
           <p className="text-center mt-8 text-sm text-gray-600">
-            Don&apos;t have an account?{' '}
-            <a href="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
+            Don&apos;t have an account?{" "}
+            <a
+              href="/signup"
+              className="text-blue-600 hover:text-blue-800 font-medium"
+            >
               Sign up
             </a>
           </p>

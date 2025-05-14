@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   GridComponent,
   Inject,
@@ -6,13 +6,13 @@ import {
   ColumnDirective,
   Search,
   Page,
-} from '@syncfusion/ej2-react-grids';
+} from "@syncfusion/ej2-react-grids";
 
-import { employeesData, employeesGrid } from '../data/dummy';
-import { Header } from '../components';
+import { employeesData, employeesGrid } from "../data/dummy";
+import { Header } from "../components";
 
 const Employees = () => {
-  const toolbarOptions = ['Search'];
+  const toolbarOptions = ["Search"];
 
   const editing = { allowDeleting: true, allowEditing: true };
 

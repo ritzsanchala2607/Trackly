@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   GridComponent,
   ColumnsDirective,
@@ -10,14 +10,14 @@ import {
   Toolbar,
   Sort,
   Filter,
-} from '@syncfusion/ej2-react-grids';
+} from "@syncfusion/ej2-react-grids";
 
-import { customersData, customersGrid } from '../data/dummy';
-import { Header } from '../components';
+import { customersData, customersGrid } from "../data/dummy";
+import { Header } from "../components";
 
 const Customers = () => {
   const selectionsettings = { persistSelection: true };
-  const toolbarOptions = ['Delete'];
+  const toolbarOptions = ["Delete"];
   const editing = { allowDeleting: true, allowEditing: true };
 
   return (
