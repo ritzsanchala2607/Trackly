@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -42,13 +43,21 @@ const LeadDetail = () => {
       </h2>
 
       <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between' }}>
-        <p><strong>Client Name:</strong> {leadData.client}</p>
-        <p><strong>Date:</strong> {leadData.date}</p>
+        <p>
+          <strong>Client Name:</strong> {leadData.client}
+        </p>
+        <p>
+          <strong>Date:</strong> {leadData.date}
+        </p>
       </div>
 
       <div style={{ marginBottom: '30px', display: 'flex', justifyContent: 'space-between' }}>
-        <p><strong>Lead ID:</strong> {leadData.lead_id}</p>
-        <p><strong>Status:</strong> {leadData.status}</p>
+        <p>
+          <strong>Lead ID:</strong> {leadData.lead_id}
+        </p>
+        <p>
+          <strong>Status:</strong> {leadData.status}
+        </p>
       </div>
 
       {followUps.map((followUp, index) => (
