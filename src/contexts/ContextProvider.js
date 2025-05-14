@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo } from "react";
 
 const StateContext = createContext();
 
@@ -11,23 +11,24 @@ const initialState = {
 
 export const ContextProvider = ({ children }) => {
   const [screenSize, setScreenSize] = useState(undefined);
-  const [currentColor, setCurrentColor] = useState('#03C9D7');
-  const [currentMode, setCurrentMode] = useState('Light');
+  const [currentColor, setCurrentColor] = useState("#03C9D7");
+  const [currentMode, setCurrentMode] = useState("Light");
   const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
-    localStorage.setItem('themeMode', e.target.value);
+    localStorage.setItem("themeMode", e.target.value);
   };
 
   const setColor = (color) => {
     setCurrentColor(color);
-    localStorage.setItem('colorMode', color);
+    localStorage.setItem("colorMode", color);
   };
 
-  const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
+  const handleClick = (clicked) =>
+    setIsClicked({ ...initialState, [clicked]: true });
 
   const contextValue = useMemo(
     () => ({
@@ -48,10 +49,21 @@ export const ContextProvider = ({ children }) => {
       themeSettings,
       setThemeSettings,
     }),
-    [currentColor, currentMode, activeMenu, screenSize, isClicked, themeSettings],
+    [
+      currentColor,
+      currentMode,
+      activeMenu,
+      screenSize,
+      isClicked,
+      themeSettings,
+    ],
   );
 
-  return <StateContext.Provider value={contextValue}>{children}</StateContext.Provider>;
+  return (
+    <StateContext.Provider value={contextValue}>
+      {children}
+    </StateContext.Provider>
+  );
 };
 
 export const useStateContext = () => useContext(StateContext);

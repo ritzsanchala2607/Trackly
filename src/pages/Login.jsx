@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,47 +30,63 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             {/* Email Field */}
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Email Address
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="you@example.com"
+                  required
+                />
               </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="you@example.com"
-                required
-              />
             </div>
 
             {/* Password Field */}
             <div className="mb-4">
               <div className="flex justify-between items-center mb-1">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                {/* eslint-disable jsx-a11y/label-has-associated-control */}
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Password
+                  <a
+                    href="/signup"
+                    className="text-xs text-blue-600 hover:text-blue-800"
+                  >
+                    Forgot Password?
+                  </a>
                 </label>
-                <a href="#" className="text-xs text-blue-600 hover:text-blue-800">
-                  Forgot Password?
-                </a>
               </div>
               <div className="relative">
                 <input
                   id="password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="••••••••"
                   required
                 />
+
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? (
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -79,7 +95,12 @@ const Login = () => {
                       />
                     </svg>
                   ) : (
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -100,15 +121,18 @@ const Login = () => {
 
             {/* Remember Me Checkbox */}
             <div className="flex items-center mb-6">
-              <input
-                id="remember-me"
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                Remember me
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-700"
+              >
+                <input
+                  id="remember-me"
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded bg-white"
+                />
+                <span className="ml-2">Remember me</span>
               </label>
             </div>
 
@@ -123,14 +147,19 @@ const Login = () => {
 
           {/* Divider */}
           <div className="relative flex items-center mt-8">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="flex-shrink mx-4 text-gray-500 text-sm">Or continue with</span>
-            <div className="flex-grow border-t border-gray-300"></div>
+            <div className="flex-grow border-t border-gray-300" />
+            <span className="flex-shrink mx-4 text-gray-500 text-sm">
+              Or continue with
+            </span>
+            <div className="flex-grow border-t border-gray-300" />
           </div>
 
           {/* Social Login */}
           <div className="grid grid-cols-2 gap-4 mt-6">
-            <button className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 text-gray-700">
+            <button
+              className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 text-gray-700"
+              type="button"
+            >
               <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
@@ -151,7 +180,10 @@ const Login = () => {
               </svg>
               Google
             </button>
-            <button className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 text-gray-700">
+            <button
+              className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 text-gray-700"
+              type="button"
+            >
               <svg className="h-5 w-5 mr-2" fill="#1877F2" viewBox="0 0 24 24">
                 <path d="M20 12a8 8 0 10-9.25 7.903v-5.59H8.719V12h2.031v-1.762c0-2.005 1.194-3.113 3.022-3.113.875 0 1.79.156 1.79.156V9.25h-1.008c-.994 0-1.304.617-1.304 1.25V12h2.219l-.355 2.313H13.25v5.59A8.002 8.002 0 0020 12z" />
               </svg>
@@ -161,8 +193,11 @@ const Login = () => {
 
           {/* Sign Up Link */}
           <p className="text-center mt-8 text-sm text-gray-600">
-            Don't have an account?{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-800 font-medium">
+            Don&apos;t have an account?{" "}
+            <a
+              href="/signup"
+              className="text-blue-600 hover:text-blue-800 font-medium"
+            >
               Sign up
             </a>
           </p>
