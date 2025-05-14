@@ -15,7 +15,9 @@ const Kanban = () => (
     >
       <ColumnsDirective>
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        {kanbanGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
+        {kanbanGrid.map((item, index) => (
+          <ColumnDirective key={index} {...item} />
+        ))}
       </ColumnsDirective>
     </KanbanComponent>
   </div>

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import * as XLSX from "xlsx";
+import React, { useState } from 'react';
+import * as XLSX from 'xlsx';
 
 const AddLeads = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    date: "",
-    contactNumber: "",
-    email: "",
-    district: "",
+    name: '',
+    date: '',
+    contactNumber: '',
+    email: '',
+    district: '',
   });
 
   const handleChange = (e) => {
@@ -16,13 +16,13 @@ const AddLeads = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Manually Submitted Lead:", formData);
+    console.log('Manually Submitted Lead:', formData);
     setFormData({
-      name: "",
-      date: "",
-      contactNumber: "",
-      email: "",
-      district: "",
+      name: '',
+      date: '',
+      contactNumber: '',
+      email: '',
+      district: '',
     });
   };
 
@@ -33,12 +33,12 @@ const AddLeads = () => {
     const reader = new FileReader();
     reader.onload = (evt) => {
       const bstr = evt.target.result;
-      const workbook = XLSX.read(bstr, { type: "binary" });
+      const workbook = XLSX.read(bstr, { type: 'binary' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-      console.log("Uploaded XLSX Data:", jsonData);
+      console.log('Uploaded XLSX Data:', jsonData);
     };
     reader.readAsBinaryString(file);
   };
@@ -110,10 +110,7 @@ const AddLeads = () => {
           </a>
         </div>
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded w-full mb-2"
-        >
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded w-full mb-2">
           Submit
         </button>
       </form>

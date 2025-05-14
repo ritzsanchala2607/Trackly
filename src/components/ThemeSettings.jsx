@@ -22,7 +22,6 @@ const ThemeSettings = () => {
           >
             <MdOutlineCancel />
           </button>
-
         </div>
         <div className="flex-col border-t-1 border-color p-4 ml-4">
           <p className="font-semibold text-xl ">Theme Option</p>
@@ -73,7 +72,9 @@ const ThemeSettings = () => {
                     style={{ backgroundColor: item.color }}
                     onClick={() => setColor(item.color)}
                   >
-                    <BsCheck className={`ml-2 text-2xl text-white ${item.color === currentColor ? 'block' : 'hidden'}`} />
+                    <BsCheck
+                      className={`ml-2 text-2xl text-white ${item.color === currentColor ? 'block' : 'hidden'}`}
+                    />
                   </button>
                 </div>
               </TooltipComponent>

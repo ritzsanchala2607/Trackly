@@ -22,8 +22,7 @@
 
 ## Tech Stack
 
-- **Frontend**: `React,js`  
-- **Backend**: `Node.js`, `Express.js`  
-- **Database**: `PostgreSQL`  
+- **Frontend**: `React,js`
+- **Backend**: `Node.js`, `Express.js`
+- **Database**: `PostgreSQL`
 - **Tools**: Visual Studio Code
-

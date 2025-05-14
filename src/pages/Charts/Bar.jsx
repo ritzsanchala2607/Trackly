@@ -1,5 +1,15 @@
 import React from 'react';
-import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Legend, Category, Tooltip, ColumnSeries, DataLabel } from '@syncfusion/ej2-react-charts';
+import {
+  ChartComponent,
+  SeriesCollectionDirective,
+  SeriesDirective,
+  Inject,
+  Legend,
+  Category,
+  Tooltip,
+  ColumnSeries,
+  DataLabel,
+} from '@syncfusion/ej2-react-charts';
 
 import { barCustomSeries, barPrimaryXAxis, barPrimaryYAxis } from '../../data/dummy';
 import { ChartsHeader } from '../../components';
@@ -24,7 +34,9 @@ const Bar = () => {
           <Inject services={[ColumnSeries, Legend, Tooltip, Category, DataLabel]} />
           <SeriesCollectionDirective>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {barCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)}
+            {barCustomSeries.map((item, index) => (
+              <SeriesDirective key={index} {...item} />
+            ))}
           </SeriesCollectionDirective>
         </ChartComponent>
       </div>

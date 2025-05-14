@@ -5,9 +5,27 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, ThemeSettings, Sidebar } from './components';
 import {
-  EmpDashboard, Ecommerce, MarketingAgency, AddLeads, AddEmployee, LeadsTable,
-  Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban,
-  Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor,
+  EmpDashboard,
+  Ecommerce,
+  MarketingAgency,
+  AddLeads,
+  AddEmployee,
+  LeadsTable,
+  Orders,
+  Calendar,
+  Employees,
+  Stacked,
+  Pyramid,
+  Customers,
+  Kanban,
+  Line,
+  Area,
+  Bar,
+  Pie,
+  Financial,
+  ColorPicker,
+  ColorMapping,
+  Editor,
 } from './pages';
 
 import './App.css';
@@ -72,9 +90,11 @@ const AppContent = () => {
         </div>
 
         {/* Main Content without Sidebar */}
-        <div className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full ${
-          activeMenu ? 'md:ml-72' : 'flex-2'
-        }`}>
+        <div
+          className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full ${
+            activeMenu ? 'md:ml-72' : 'flex-2'
+          }`}
+        >
           <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
             <Navbar />
           </div>

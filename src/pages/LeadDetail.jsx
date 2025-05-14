@@ -26,16 +26,26 @@ const LeadDetail = () => {
 
   return (
     <div style={{ maxWidth: '700px', margin: '60px auto', padding: '20px' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '50px', fontSize: '26px' }}>Lead Detail Page</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: '50px', fontSize: '26px' }}>
+        Lead Detail Page
+      </h2>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '25px' }}>
-        <div><strong>Client Name:</strong> {leadData.clientName}</div>
-        <div><strong>Date:</strong> {leadData.date}</div>
+        <div>
+          <strong>Client Name:</strong> {leadData.clientName}
+        </div>
+        <div>
+          <strong>Date:</strong> {leadData.date}
+        </div>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '35px' }}>
-        <div><strong>Lead ID:</strong> {leadData.leadId}</div>
-        <div><strong>Status:</strong> {leadData.status}</div>
+        <div>
+          <strong>Lead ID:</strong> {leadData.leadId}
+        </div>
+        <div>
+          <strong>Status:</strong> {leadData.status}
+        </div>
       </div>
 
       {followUps.map((val, index) => (
@@ -51,7 +61,7 @@ const LeadDetail = () => {
               fontSize: '15px',
               border: '1px solid #ccc',
               borderRadius: '4px',
-              marginRight: '12px'
+              marginRight: '12px',
             }}
           />
           <button
@@ -62,7 +72,7 @@ const LeadDetail = () => {
               color: '#fff',
               border: 'none',
               borderRadius: '4px',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             Add Follow UP
@@ -80,7 +90,7 @@ const LeadDetail = () => {
             border: 'none',
             borderRadius: '4px',
             cursor: 'pointer',
-            marginRight: '12px'
+            marginRight: '12px',
           }}
         >
           Back
@@ -93,7 +103,7 @@ const LeadDetail = () => {
             color: '#fff',
             border: 'none',
             borderRadius: '4px',
-            cursor: 'pointer'
+            cursor: 'pointer',
           }}
         >
           Add Follow UP

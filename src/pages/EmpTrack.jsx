@@ -66,12 +66,7 @@ const EmpTrack = () => {
 
   return (
     <div style={{ padding: 24 }}>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{ pageSize: 5 }}
-        bordered
-      />
+      <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} bordered />
     </div>
   );
 };
