@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +10,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [token, setToken] = useState('No Token');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('No Role');
 
   const fetchSession = async () => {
     try {
@@ -17,18 +18,28 @@ const Login = () => {
         withCredentials: true,
       });
 
-      setToken(res.data.token);
+      const freshToken = res.data.token;
+      setToken(freshToken);
 
       const userData = await axios.get('http://localhost:3000/api/user/get-user', {
-        headers: { authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${freshToken}` },
         withCredentials: true,
       });
 
-      setRole(userData.user.role);
+      setRole(userData.data.user.role); // NOTE: use `data.user.role`, not just `user.role`
     } catch (error) {
       setToken('Error');
     }
   };
+
+  useEffect(() => {
+    if (role && role !== 'No Role') {
+      if (role === 'Admin') navigate('/admindashboard');
+      else if (role === 'Employee') navigate('/empdashboard');
+      else if (role === 'Marketing Agency') navigate('/madashboard');
+      else navigate('/login');
+    }
+  }, [role, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,16 +61,6 @@ const Login = () => {
         setEmail('');
         setPassword('');
         fetchSession();
-
-        if (role === 'Admin') {
-          navigate('/admindashboard');
-        } else if (role === 'Employee') {
-          navigate('/empdashboard');
-        } else if (role === 'Marketing Agency') {
-          navigate('/madashboard');
-        } else {
-          navigate('/login');
-        }
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
