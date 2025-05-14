@@ -36,7 +36,9 @@ const AddEmployee = () => {
     <div style={{ maxWidth: '600px', margin: '40px auto' }}>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="empId" style={labelStyle}>Employee ID:</label>
+          <label htmlFor="empId" style={labelStyle}>
+            Employee ID:
+          </label>
           <input
             id="empId"
             type="text"
@@ -48,7 +50,9 @@ const AddEmployee = () => {
         </div>
 
         <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="name" style={labelStyle}>Employee Name:</label>
+          <label htmlFor="name" style={labelStyle}>
+            Employee Name:
+          </label>
           <input
             id="name"
             type="text"
@@ -61,7 +65,9 @@ const AddEmployee = () => {
 
         {/* ... similar pattern for other form fields ... */}
         <div style={{ marginBottom: '15px' }}>
-        <label htmlFor="role" style={labelStyle}>Role:</label>
+          <label htmlFor="role" style={labelStyle}>
+            Role:
+          </label>
           <select
             id="role"
             name="role"
