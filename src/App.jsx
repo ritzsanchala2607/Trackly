@@ -106,7 +106,7 @@ const AppContent = () => {
           <div>
             <Routes>
               {/* Dashboard */}
-              <Route path="/" element={<Ecommerce />} />
+              {/* <Route path="/" element={<Ecommerce />} /> */}
               <Route path="/admindashboard" element={<Ecommerce />} />
               <Route path="/empdashboard" element={<EmpDashboard />} />
               <Route path="/madashboard" element={<EmpDashboard />} />
@@ -150,6 +150,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/*" element={<AppContent />} />
