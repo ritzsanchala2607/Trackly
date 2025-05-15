@@ -13,18 +13,41 @@ const AddLeads = () => {
     source: '',
   });
 
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.client.trim()) newErrors.client = 'Customer name is required';
+    if (!formData.date) newErrors.date = 'Date is required';
+    if (!formData.contact_number.trim()) {
+      newErrors.contact_number = 'Contact number is required';
+    } else if (!/^\d{10}$/.test(formData.contact_number)) {
+      newErrors.contact_number = 'Enter a valid 10-digit number';
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Invalid email address';
+    }
+    if (!formData.district.trim()) newErrors.district = 'District is required';
+    if (!formData.source) newErrors.source = 'Source is required';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: '' }); // Clear error on change
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("Manually Submitted Lead:", formData);
+    if (!validate()) return;
 
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/api/lead/`, formData)
       .then((res) => {
-        // eslint-disable-next-line no-alert
         alert(res.data.message);
         setFormData({
           client: '',
@@ -34,22 +57,12 @@ const AddLeads = () => {
           district: '',
           source: '',
         });
+        setErrors({});
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
         console.error(err);
-        // eslint-disable-next-line no-alert
         alert('Something went wrong during registration.');
       });
-
-    setFormData({
-      client: '',
-      date: '',
-      contact_number: '',
-      email: '',
-      district: '',
-      source: '',
-    });
   };
 
   const handleFileUpload = (e) => {
@@ -57,7 +70,6 @@ const AddLeads = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Optional: Validate file type
     if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
       alert('Please upload a valid Excel file (.xlsx or .xls)');
       return;
@@ -70,23 +82,19 @@ const AddLeads = () => {
         const bstr = evt.target.result;
         const workbook = XLSX.read(bstr, { type: 'binary' });
 
-        const sheetName = workbook.SheetNames[0]; // First sheet only
+        const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' }); // defval: '' ensures empty cells are included
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
 
         axios
           .post(`${process.env.REACT_APP_BASE_URL}/api/lead/excel`, jsonData)
           .then((res) => {
-            // eslint-disable-next-line no-alert
             alert(res.data.message);
           })
           .catch((err) => {
-            // eslint-disable-next-line no-console
             console.error(err);
-            // eslint-disable-next-line no-alert
             alert('Something went wrong during registration.');
           });
-        // Example: setData(jsonData); if using useState
       } catch (error) {
         alert('Failed to read the Excel file.');
       }
@@ -105,65 +113,31 @@ const AddLeads = () => {
           <h3 className="text-lg font-medium mb-4">Manual Lead Entry</h3>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="form-group">
-              <label className="block font-medium mb-1" htmlFor="date">
-                Date:
-                <input
-                  type="date"
-                  id="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="w-full border rounded p-2"
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="form-group">
-              <label className="block font-medium mb-1" htmlFor="client">
-                Customer Name:
-                <input
-                  type="text"
-                  id="client"
-                  name="client"
-                  value={formData.client}
-                  onChange={handleChange}
-                  className="w-full border rounded p-2"
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="form-group">
-              <label className="block font-medium mb-1" htmlFor="contact_number">
-                Contact Number:
-                <input
-                  type="tel"
-                  name="contact_number"
-                  id="contact_number"
-                  value={formData.contact_number}
-                  onChange={handleChange}
-                  className="w-full border rounded p-2"
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="form-group">
-              <label className="block font-medium mb-1" htmlFor="email">
-                Email:
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full border rounded p-2"
-                  required
-                />
-              </label>
-            </div>
+            {[
+              { label: 'Date', name: 'date', type: 'date' },
+              { label: 'Customer Name', name: 'client', type: 'text' },
+              { label: 'Contact Number', name: 'contact_number', type: 'tel' },
+              { label: 'Email', name: 'email', type: 'email' },
+              { label: 'District', name: 'district', type: 'text' },
+            ].map(({ label, name, type }) => (
+              <div className="form-group" key={name}>
+                <label className="block font-medium mb-1" htmlFor={name}>
+                  {label}:
+                  <input
+                    type={type}
+                    id={name}
+                    name={name}
+                    value={formData[name]}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                    required
+                  />
+                  {errors[name] && (
+                    <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
+                  )}
+                </label>
+              </div>
+            ))}
 
             <div className="form-group">
               <label className="block font-medium mb-1" htmlFor="source">
@@ -182,21 +156,9 @@ const AddLeads = () => {
                   <option value="Youtube">Youtube</option>
                   <option value="News Paper">News Paper</option>
                 </select>
-              </label>
-            </div>
-
-            <div className="form-group">
-              <label className="block font-medium mb-1" htmlFor="district">
-                District:
-                <input
-                  type="text"
-                  name="district"
-                  id="district"
-                  value={formData.district}
-                  onChange={handleChange}
-                  className="w-full border rounded p-2"
-                  required
-                />
+                {errors.source && (
+                  <p className="text-red-500 text-sm mt-1">{errors.source}</p>
+                )}
               </label>
             </div>
 
