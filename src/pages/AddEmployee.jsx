@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+/* eslint-disable no-alert */
+import React, { useState } from 'react';
+import * as XLSX from 'xlsx';
+import axios from 'axios';
+import Employees from './Employees';
 
 const AddEmployee = () => {
   const [formData, setFormData] = useState({
-    empId: "",
-    name: "",
-    email: "",
-    password: "",
-    joiningDate: "",
-    role: "",
-    phone: "",
-    district: "",
+    user_name: '',
+    name: '',
+    email: '',
+    phone: '',
+    role: 'Employee',
+    district: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -18,16 +21,16 @@ const AddEmployee = () => {
   };
 
   const inputStyle = {
-    width: "100%",
-    padding: "8px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
+    width: '100%',
+    padding: '8px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
   };
 
   const labelStyle = {
-    fontWeight: "bold",
-    display: "block",
-    marginBottom: "5px",
+    fontWeight: 'bold',
+    display: 'block',
+    marginBottom: '5px',
   };
 
   // ... existing handleSubmit function ...
@@ -38,9 +41,9 @@ const AddEmployee = () => {
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "40px auto" }}>
+    <div style={{ maxWidth: '600px', margin: '40px auto' }}>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "15px" }}>
+        <div style={{ marginBottom: '15px' }}>
           <label htmlFor="empId" style={labelStyle}>
             Employee ID:
             <input
@@ -54,7 +57,7 @@ const AddEmployee = () => {
           </label>
         </div>
 
-        <div style={{ marginBottom: "15px" }}>
+        <div style={{ marginBottom: '15px' }}>
           <label htmlFor="name" style={labelStyle}>
             Employee Name:
             <input
@@ -69,7 +72,7 @@ const AddEmployee = () => {
         </div>
 
         {/* ... similar pattern for other form fields ... */}
-        <div style={{ marginBottom: "15px" }}>
+        <div style={{ marginBottom: '15px' }}>
           <label htmlFor="role" style={labelStyle}>
             Role:
             <select
@@ -90,14 +93,14 @@ const AddEmployee = () => {
         <button
           type="submit"
           style={{
-            width: "100%",
-            padding: "10px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginTop: "10px",
+            width: '100%',
+            padding: '10px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            marginTop: '10px',
           }}
         >
           Submit

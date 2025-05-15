@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +10,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [token, setToken] = useState('No Token');
   const [role, setRole] = useState('No Role');
+  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const fetchSession = async () => {
     try {
@@ -41,8 +42,37 @@ const Login = () => {
     }
   }, [role, navigate]);
 
+  const validateForm = () => {
+    let isValid = true;
+    
+    // Reset previous errors
+    setPasswordError('');
+    setEmailError('');
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address');
+      isValid = false;
+    }
+    
+    // Validate password length
+    if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters long');
+      isValid = false;
+    }
+    
+    return isValid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
+    
     const payload = {
       email,
       password,
@@ -66,13 +96,32 @@ const Login = () => {
         // eslint-disable-next-line no-console
         console.error(err);
         // eslint-disable-next-line no-alert
-        alert('Something went wrong during registration.');
+        alert('Something went wrong during login.');
       });
-    // Handle authentication logic here
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    
+    // Clear error when user starts typing again
+    if (passwordError && newPassword.length >= 6) {
+      setPasswordError('');
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    
+    // Clear error when user starts typing again
+    if (emailError) {
+      setEmailError('');
+    }
   };
 
   return (
@@ -95,12 +144,15 @@ const Login = () => {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  onChange={handleEmailChange}
+                  className={`w-full px-3 py-2 bg-white border ${
+                    emailError ? 'border-red-500' : 'border-gray-300'
+                  } rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   placeholder="you@example.com"
                   required
                 />
               </label>
+              {emailError && <p className="mt-1 text-sm text-red-600">{emailError}</p>}
             </div>
 
             {/* Password Field */}
@@ -119,8 +171,10 @@ const Login = () => {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  onChange={handlePasswordChange}
+                  className={`w-full px-3 py-2 bg-white border ${
+                    passwordError ? 'border-red-500' : 'border-gray-300'
+                  } rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   placeholder="••••••••"
                   required
                 />
@@ -157,6 +211,7 @@ const Login = () => {
                   )}
                 </button>
               </div>
+              {passwordError && <p className="mt-1 text-sm text-red-600">{passwordError}</p>}
             </div>
 
             {/* Remember Me Checkbox */}
@@ -192,7 +247,9 @@ const Login = () => {
           {/* Social Login */}
           <div className="grid grid-cols-2 gap-4 mt-6">
             <button
-              onClick={() => {window.location.href = "http://localhost:3000/auth/google"}}
+              onClick={() => {
+                window.location.href = 'http://localhost:3000/auth/google';
+              }}
               className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 text-gray-700"
               type="button"
             >
@@ -230,8 +287,8 @@ const Login = () => {
           {/* Sign Up Link */}
           <p className="text-center mt-8 text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <a href="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
-              Sign up
+            <a href="/register" className="text-blue-600 hover:text-blue-800 font-medium">
+              Register
             </a>
           </p>
         </div>

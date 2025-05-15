@@ -62,9 +62,9 @@ const LeadsTable = () => {
       });
 
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/api/lead/`)
+      .get(`${process.env.REACT_APP_BASE_URL}/api/lead/unassigned`)
       .then((res) => {
-        setData(res.data);
+        setData(res.data.leads);
       })
       .catch((err) => {
         console.error('Error fetching employees', err);
