@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { Navbar, Footer, ThemeSettings, Sidebar } from './components';
+import { Navbar, Footer, ThemeSettings } from './components';
 import {
   EmpDashboard,
   Ecommerce,
@@ -44,7 +44,6 @@ const AppContent = () => {
     currentColor,
     themeSettings,
     setThemeSettings,
-    activeMenu,
   } = useStateContext();
 
   const [selectedLead] = useState(null);
@@ -65,16 +64,7 @@ const AppContent = () => {
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <div className="flex relative dark:bg-main-dark-bg">
-        {activeMenu ? (
-          <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
-            <Sidebar />
-          </div>
-        ) : (
-          <div className="w-0 dark:bg-secondary-dark-bg">
-            <Sidebar />
-          </div>
-        )}
-
+        
         {/* Settings button */}
         <div className="fixed right-4 bottom-4 z-[1000]">
           <TooltipComponent content="Settings" position="Top">
@@ -90,23 +80,16 @@ const AppContent = () => {
         </div>
 
         {/* Main Content without Sidebar */}
-        <div
-          className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full ${
-            activeMenu ? 'md:ml-72' : 'flex-2'
-          }`}
-        >
+        <div className="dark:bg-main-dark-bg bg-main-bg min-h-screen w-full">
           <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
             <Navbar />
           </div>
 
-          {/* Theme Settings Modal */}
           {themeSettings && <ThemeSettings />}
 
-          {/* Routes */}
           <div>
             <Routes>
               {/* Dashboard */}
-              {/* <Route path="/" element={<Ecommerce />} /> */}
               <Route path="/admindashboard" element={<Ecommerce />} />
               <Route path="/empdashboard" element={<EmpDashboard />} />
               <Route path="/madashboard" element={<EmpDashboard />} />

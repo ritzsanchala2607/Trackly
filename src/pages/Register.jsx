@@ -64,7 +64,7 @@ const Register = () => {
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
-        console.error(err);
+        console.log(err);
         // eslint-disable-next-line no-alert
         alert('Something went wrong during registration.');
       });
