@@ -14,14 +14,14 @@ const Login = () => {
 
   const fetchSession = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/user/get-token', {
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
         withCredentials: true,
       });
 
       const freshToken = res.data.token;
       setToken(freshToken);
 
-      const userData = await axios.get('http://localhost:3000/api/user/get-user', {
+      const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
         headers: { Authorization: `Bearer ${freshToken}` },
         withCredentials: true,
       });
