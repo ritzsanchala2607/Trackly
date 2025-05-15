@@ -40,7 +40,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 //   </div>
 // );
 
-const EmpDashboard = () => {
+const MADashboard = () => {
   const { currentColor } = useStateContext();
   const toolbarOptions = ['Search'];
 
@@ -104,4 +104,4 @@ const EmpDashboard = () => {
   );
 };
 
-export default EmpDashboard;
+export default MADashboard;

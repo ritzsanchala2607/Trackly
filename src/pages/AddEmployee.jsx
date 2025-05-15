@@ -2,68 +2,103 @@ import React, { useState } from "react";
 
 const AddEmployee = () => {
   const [formData, setFormData] = useState({
+    empId: "",
+    name: "",
     email: "",
-    username: "",
     password: "",
+    joiningDate: "",
     role: "",
+    phone: "",
+    district: "",
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "8px",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+  };
+
+  const labelStyle = {
+    fontWeight: "bold",
+    display: "block",
+    marginBottom: "5px",
+  };
+
+  // ... existing handleSubmit function ...
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Employee Data Submitted:", formData);
+    // your submit logic here
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form 
-        onSubmit={handleSubmit} 
-        className="bg-white p-6 rounded-lg shadow-md w-[500px] border border-gray-300"
-      >
-        <h2 className="text-center text-xl font-semibold mb-4">Add Employee</h2>
-        
-        <label className="block font-semibold">Email:</label>
-        <input 
-          type="email" 
-          name="email" 
-          value={formData.email} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-2"
-        />
-        
-        <label className="block font-semibold">Username:</label>
-        <input 
-          type="text" 
-          name="username" 
-          value={formData.username} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-2"
-        />
-        
-        <label className="block font-semibold">Password:</label>
-        <input 
-          type="password" 
-          name="password" 
-          value={formData.password} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-2"
-        />
-        
-        <label className="block font-semibold">Role:</label>
-        <input 
-          type="text" 
-          name="role" 
-          value={formData.role} 
-          onChange={handleChange} 
-          className="w-full border rounded p-2 mb-4"
-        />
-        
-        <button 
-          type="submit" 
-          className="bg-blue-500 text-white p-2 rounded w-full"
+    <div style={{ maxWidth: "600px", margin: "40px auto" }}>
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: "15px" }}>
+          <label htmlFor="empId" style={labelStyle}>
+            Employee ID:
+            <input
+              id="empId"
+              type="text"
+              name="empId"
+              value={formData.empId}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+          </label>
+        </div>
+
+        <div style={{ marginBottom: "15px" }}>
+          <label htmlFor="name" style={labelStyle}>
+            Employee Name:
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+          </label>
+        </div>
+
+        {/* ... similar pattern for other form fields ... */}
+        <div style={{ marginBottom: "15px" }}>
+          <label htmlFor="role" style={labelStyle}>
+            Role:
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              style={inputStyle}
+            >
+              <option value="">Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="Employee">Employee</option>
+              <option value="Marketing Agency">Marketing Agency</option>
+            </select>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "10px",
+            backgroundColor: "#007bff",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            marginTop: "10px",
+          }}
         >
           Submit
         </button>

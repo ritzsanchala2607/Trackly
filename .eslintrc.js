@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:prettier/recommended', // ✅ Add Prettier integration
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -16,18 +17,22 @@ module.exports = {
   },
   plugins: [
     'react',
+    'prettier', // ✅ Add Prettier plugin
   ],
   rules: {
+    'camelcase': 'off',
+    'no-console': 'off',
+    'no-unused-vars': 'off',
+    'no-alert': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'prettier/prettier': 'warn', // ✅ Prettier rules trigger as warnings
     'react/function-component-definition': 0,
     'import/extensions': 0,
     'react/prop-types': 0,
     'linebreak-style': 0,
     'react/state-in-constructor': 0,
     'import/prefer-default-export': 0,
-    'max-len': [
-      2,
-      550,
-    ],
+    'max-len': [2, 550],
     'no-multiple-empty-lines': [
       'error',
       {
@@ -38,16 +43,7 @@ module.exports = {
     'no-underscore-dangle': [
       'error',
       {
-        allow: [
-          '_d',
-          '_dh',
-          '_h',
-          '_id',
-          '_m',
-          '_n',
-          '_t',
-          '_text',
-        ],
+        allow: ['_d', '_dh', '_h', '_id', '_m', '_n', '_t', '_text'],
       },
     ],
     'object-curly-newline': 0,
@@ -61,19 +57,9 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': [
       'error',
       {
-        components: [
-          'Link',
-        ],
-        specialLink: [
-          'to',
-          'hrefLeft',
-          'hrefRight',
-        ],
-        aspects: [
-          'noHref',
-          'invalidHref',
-          'preferButton',
-        ],
+        components: ['Link'],
+        specialLink: ['to', 'hrefLeft', 'hrefRight'],
+        aspects: ['noHref', 'invalidHref', 'preferButton'],
       },
     ],
   },

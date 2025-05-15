@@ -1,77 +1,115 @@
-import { Link } from "react-router-dom";
 import React from 'react';
-import { GoDotFill  } from 'react-icons/go';
+import { GoPrimitiveDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+import { Link } from 'react-router-dom';
 
-import { GridComponent, Inject, ColumnsDirective, ColumnDirective, Search, Page } from '@syncfusion/ej2-react-grids';
+// import {
+//   GridComponent,
+//   Inject,
+//   ColumnsDirective,
+//   ColumnDirective,
+//   Search,
+//   Page,
+// } from '@syncfusion/ej2-react-grids';
+
 import { Stacked, Pie, Button, LineChart, SparkLine, Header } from '../components';
-import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData, employeesData, employeesGrid } from '../data/dummy';
+import {
+  earningData,
+  medicalproBranding,
+  recentTransactions,
+  weeklyStats,
+  dropdownData,
+  SparklineAreaData,
+  ecomPieChartData,
+  // employeesData,
+  // employeesGrid,
+} from '../data/dummy';
 
 import { useStateContext } from '../contexts/ContextProvider';
 import product9 from '../data/product9.jpg';
+import LeadsTable from './LeadsTable';
+import EmpTrack from './EmpTrack';
 
 const DropDown = ({ currentMode }) => (
   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
-    <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: (currentMode === 'Dark') && 'white' }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
+    <DropDownListComponent
+      id="time"
+      fields={{ text: 'Time', value: 'Id' }}
+      style={{ border: 'none', color: currentMode === 'Dark' && 'white' }}
+      value="1"
+      dataSource={dropdownData}
+      popupHeight="220px"
+      popupWidth="120px"
+    />
   </div>
 );
 
 const Ecommerce = () => {
-  const { currentColor, currentMode } = useStateContext();
-  const toolbarOptions = ['Search'];
+  // useEffect(() => {
+  //   const fetchSession = async () => {
+  //     try {
+  //       const res = await axios.get('http://localhost:3000/api/user/get-token', {
+  //         withCredentials: true,
+  //       });
+  //       console.log('Session token:', res.data.token);
+  //     } catch (error) {
+  //       console.error('Error getting session:', error.response?.data || error.message);
+  //     }
+  //   };
 
-  const editing = { allowDeleting: true, allowEditing: true };
+  //   fetchSession();
+  // }, []);
+  const { currentColor, currentMode } = useStateContext();
+  // const toolbarOptions = ['Search'];
+
+  // const editing = { allowDeleting: true, allowEditing: true };
 
   return (
     <div className="mt-7">
       <div className="flex flex-wrap lg:flex-nowrap justify-end gap-x-4 mr-5">
-        <Link to="/addlead"><Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" /></Link>
-        <Link to="/addlead"><Button color="white" bgColor={currentColor} text="Add Emp" borderRadius="10px" /></Link>
+        {/* <Link to="/addemployee">
+          <Button color="white" bgColor={currentColor} text="Add Employee" borderRadius="10px" />
+        </Link> */}
+        <Link to="/addlead">
+          <Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" />
+        </Link>
+        <Link to="/calendar">
+          <Button color="white" bgColor={currentColor} text="My Calender" borderRadius="10px" />
+        </Link>
       </div>
-      <div className="flex m-3 flex-wrap justify-evenly gap-1 items-center">
-        {earningData.map((item) => (
-          <div key={item.title} className="bg-white h-44 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56  p-4 pt-9 rounded-2xl ">
+      <div className="flex flex-wrap gap-4 justify-center p-4">
+        {earningData.slice(-4).map((item) => (
+          <div
+            key={item.title}
+            className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg w-full sm:w-[48%] lg:w-[23%] p-4 pt-9 rounded-2xl shadow hover:shadow-lg transition duration-200"
+          >
             <button
               type="button"
               style={{ color: item.iconColor, backgroundColor: item.iconBg }}
-              className="text-2xl opacity-0.9 rounded-full  p-4 hover:drop-shadow-xl"
+              className="text-2xl opacity-90 rounded-full p-4 hover:drop-shadow-xl"
             >
               {item.icon}
             </button>
             <p className="mt-3">
               <span className="text-lg font-semibold">{item.amount}</span>
-              <span className={`text-sm text-${item.pcColor} ml-2`}>
-                {item.percentage}
-              </span>
+              <span className={`text-sm ml-2 text-${item.pcColor}`}>{item.percentage}</span>
             </p>
-            <p className="text-sm text-gray-400  mt-1">{item.title}</p>
+            <p className="text-sm text-gray-400 mt-1">{item.title}</p>
           </div>
-        )).slice(-4)}
+        ))}
       </div>
 
       {/* New Leads Table */}
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <Header title="New Leads" />
-        <GridComponent dataSource={employeesData} width="auto" allowPaging allowSorting pageSettings={{ pageCount: 5 }} editSettings={editing} toolbar={toolbarOptions}>
-          <ColumnsDirective>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {employeesGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
-          </ColumnsDirective>
-          <Inject services={[Search, Page]} />
-        </GridComponent>
+        <LeadsTable />
       </div>
 
       {/* Emp Track Record Table */}
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <Header title="Employee's Track Record" />
-        <GridComponent dataSource={employeesData} width="auto" allowPaging allowSorting pageSettings={{ pageCount: 5 }} editSettings={editing} toolbar={toolbarOptions}>
-          <ColumnsDirective>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {employeesGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
-          </ColumnsDirective>
-          <Inject services={[Search, Page]} />
-        </GridComponent>
+        <EmpTrack />
       </div>
 
       <div className="flex gap-10 flex-wrap justify-center">
@@ -81,13 +119,13 @@ const Ecommerce = () => {
             <div className="flex items-center gap-4">
               <p className="flex items-center gap-2 text-gray-600 hover:drop-shadow-xl">
                 <span>
-                  <GoDotFill  />
+                  <GoPrimitiveDot />
                 </span>
                 <span>Expense</span>
               </p>
               <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
                 <span>
-                  <GoDotFill  />
+                  <GoPrimitiveDot />
                 </span>
                 <span>Budget</span>
               </p>
@@ -111,7 +149,15 @@ const Ecommerce = () => {
               </div>
 
               <div className="mt-5">
-                <SparkLine currentColor={currentColor} id="line-sparkLine" type="Line" height="80px" width="250px" data={SparklineAreaData} color={currentColor} />
+                <SparkLine
+                  currentColor={currentColor}
+                  id="line-sparkLine"
+                  type="Line"
+                  height="80px"
+                  width="250px"
+                  data={SparklineAreaData}
+                  color={currentColor}
+                />
               </div>
               <div className="mt-10">
                 <Button
@@ -128,10 +174,7 @@ const Ecommerce = () => {
           </div>
         </div>
         <div>
-          <div
-            className=" rounded-2xl md:w-400 p-4 m-3"
-            style={{ backgroundColor: currentColor }}
-          >
+          <div className=" rounded-2xl md:w-400 p-4 m-3" style={{ backgroundColor: currentColor }}>
             <div className="flex justify-between items-center ">
               <p className="font-semibold text-white text-2xl">Earnings</p>
 
@@ -142,7 +185,15 @@ const Ecommerce = () => {
             </div>
 
             <div className="mt-4">
-              <SparkLine currentColor={currentColor} id="column-sparkLine" height="100px" type="Column" data={SparklineAreaData} width="320" color="rgb(242, 252, 253)" />
+              <SparkLine
+                currentColor={currentColor}
+                id="column-sparkLine"
+                height="100px"
+                type="Column"
+                data={SparklineAreaData}
+                width="320"
+                color="rgb(242, 252, 253)"
+              />
             </div>
           </div>
 
@@ -190,12 +241,7 @@ const Ecommerce = () => {
           </div>
           <div className="flex justify-between items-center mt-5 border-t-1 border-color">
             <div className="mt-3">
-              <Button
-                color="white"
-                bgColor={currentColor}
-                text="Add"
-                borderRadius="10px"
-              />
+              <Button color="white" bgColor={currentColor} text="Add" borderRadius="10px" />
             </div>
 
             <p className="text-gray-400 text-sm">36 Recent Transactions</p>
@@ -242,10 +288,17 @@ const Ecommerce = () => {
               </div>
             ))}
             <div className="mt-4">
-              <SparkLine currentColor={currentColor} id="area-sparkLine" height="160px" type="Area" data={SparklineAreaData} width="320" color="rgb(242, 252, 253)" />
+              <SparkLine
+                currentColor={currentColor}
+                id="area-sparkLine"
+                height="160px"
+                type="Area"
+                data={SparklineAreaData}
+                width="320"
+                color="rgb(242, 252, 253)"
+              />
             </div>
           </div>
-
         </div>
         <div className="w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
           <div className="flex justify-between">
@@ -291,12 +344,7 @@ const Ecommerce = () => {
           </div>
           <div className="flex justify-between items-center mt-5 border-t-1 border-color">
             <div className="mt-3">
-              <Button
-                color="white"
-                bgColor={currentColor}
-                text="Add"
-                borderRadius="10px"
-              />
+              <Button color="white" bgColor={currentColor} text="Add" borderRadius="10px" />
             </div>
 
             <p className="text-gray-400 text-sm">36 Recent Transactions</p>
@@ -310,25 +358,16 @@ const Ecommerce = () => {
             </button>
           </div>
           <div className="mt-10">
-            <img
-              className="md:w-96 h-50 "
-              src={product9}
-              alt=""
-            />
+            <img className="md:w-96 h-50 " src={product9} alt="" />
             <div className="mt-8">
               <p className="font-semibold text-lg">React 18 coming soon!</p>
               <p className="text-gray-400 ">By Johnathan Doe</p>
               <p className="mt-8 text-sm text-gray-400">
-                This will be the small description for the news you have shown
-                here. There could be some great info.
+                This will be the small description for the news you have shown here. There could be
+                some great info.
               </p>
               <div className="mt-3">
-                <Button
-                  color="white"
-                  bgColor={currentColor}
-                  text="Read More"
-                  borderRadius="10px"
-                />
+                <Button color="white" bgColor={currentColor} text="Read More" borderRadius="10px" />
               </div>
             </div>
           </div>
