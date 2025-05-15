@@ -68,9 +68,17 @@ const Ecommerce = () => {
   return (
     <div className="mt-7">
       <div className="flex flex-wrap lg:flex-nowrap justify-end gap-x-4 mr-5">
-        {/* <Link to="/addemployee">
+        <Link to="/addemployee">
           <Button color="white" bgColor={currentColor} text="Add Employee" borderRadius="10px" />
-        </Link> */}
+        </Link>
+        <Link to="/addemployee">
+          <Button
+            color="white"
+            bgColor={currentColor}
+            text="Add Marketing Agency"
+            borderRadius="10px"
+          />
+        </Link>
         <Link to="/addlead">
           <Button color="white" bgColor={currentColor} text="Add Lead" borderRadius="10px" />
         </Link>

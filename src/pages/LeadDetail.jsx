@@ -252,8 +252,8 @@ const LeadDetail = () => {
         </div>
 
         <div>
-          <span style={{ fontWeight: '600', color: '#555' }}>Assigned To:</span>
-          <span style={{ marginLeft: '8px' }}>Employee ID: {leadData.user_id}</span>
+          <span style={{ fontWeight: '600', color: '#555' }}>Assigned To: {leadData.user_id}</span>
+          {/* <span style={{ marginLeft: '8px' }}>Employee ID: {leadData.user_id}</span> */}
         </div>
       </div>
 
@@ -402,7 +402,7 @@ const LeadDetail = () => {
                       </a>
                       <button
                         type="button"
-                        onClick={() => handleDeleteDocument(doc.document_id)}
+                        onClick={() => handleDeleteDocument(doc.documet_id)}
                         style={{
                           backgroundColor: '#dc3545',
                           color: 'white',

@@ -247,7 +247,9 @@ const Login = () => {
           {/* Social Login */}
           <div className="grid grid-cols-2 gap-4 mt-6">
             <button
-              onClick={() => {window.location.href = "http://localhost:3000/auth/google"}}
+              onClick={() => {
+                window.location.href = 'http://localhost:3000/auth/google';
+              }}
               className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 text-gray-700"
               type="button"
             >
@@ -285,8 +287,8 @@ const Login = () => {
           {/* Sign Up Link */}
           <p className="text-center mt-8 text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <a href="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
-              Sign up
+            <a href="/register" className="text-blue-600 hover:text-blue-800 font-medium">
+              Register
             </a>
           </p>
         </div>
