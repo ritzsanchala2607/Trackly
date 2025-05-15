@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Table, Select, Button } from 'antd';
@@ -10,12 +12,36 @@ const LeadsTable = () => {
   const [assignments, setAssignments] = useState({});
   const [hoveredKey, setHoveredKey] = useState(null);
   const [employee, setEmployee] = useState([]);
-  const [availableUsers, setAvailableUsers] = useState([]);
+  const [availableUsers, setAvailableUsers] = useState([{}]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   const handleAssign = (key) => {
-    // console.log(`Assigned ${assignments[key]} to lead with key ${key}`);
+    const lead_id = key;
+    const emp_id = assignments[key];
+
+    console.log(`Assigning employee ${emp_id} to lead with ID ${lead_id}`);
+
+    axios
+      .put(
+        `${process.env.REACT_APP_BASE_URL}/api/lead/${lead_id}`,
+        {
+          user_id: emp_id, // or use the correct field name expected by your backend
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+      .then((res) => {
+        alert(`Lead ${lead_id} assigned successfully`);
+      })
+      .catch((err) => {
+        console.error('Error assigning lead:', err);
+        alert('Failed to assign employee to lead.');
+      });
   };
 
   useEffect(() => {
@@ -25,11 +51,14 @@ const LeadsTable = () => {
         setEmployee(res.data.employees);
 
         // Extract only names
-        const names = res.data.employees.map((emp) => emp.name);
+        const names = res.data.employees.map((emp) => ({
+          name: emp.name,
+          id: emp.user_id,
+        }));
         setAvailableUsers(names);
       })
       .catch((err) => {
-        // console.error('Error fetching employees', err);
+        console.error('Error fetching employees', err);
       });
 
     axios
@@ -38,41 +67,13 @@ const LeadsTable = () => {
         setData(res.data);
       })
       .catch((err) => {
-        // console.error('Error fetching employees', err);
+        console.error('Error fetching employees', err);
       });
   }, []);
 
   const handleChange = (value, key) => {
     setAssignments({ ...assignments, [key]: value });
   };
-
-  // const availableUsers = ['John Doe', 'Anna Smith', 'Vikram Joshi', 'Grace Kimani', 'Lukas Bauer'];
-
-  // const data = [
-  //   {
-  //     key: '1',
-  //     clientName: 'Nancy Davolio',
-  //     contact: '+1-202-555-0101',
-  //     city: 'Seattle',
-  //     state: 'Washington',
-  //     assignedTo: 'John Doe',
-  //     date: '2025-05-01',
-  //     leadId: 'LD001',
-  //     status: 'New',
-  //   },
-  //   {
-  //     key: '2',
-  //     clientName: 'Iulia Albu',
-  //     contact: '+40-123-456-789',
-  //     city: 'Bucharest',
-  //     state: 'Romania',
-  //     assignedTo: 'Anna Smith',
-  //     date: '2025-05-01',
-  //     leadId: 'LD002',
-  //     status: 'Contacted',
-  //   },
-  //   // ... more data
-  // ];
 
   const columns = [
     {
@@ -114,34 +115,44 @@ const LeadsTable = () => {
       title: 'Assigned To',
       key: 'assignedTo',
       render: (_, record) => (
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Select
-            defaultValue={record.assignedTo}
-            style={{ width: 150 }}
-            onChange={(value) => handleChange(value, record.key)}
-          >
-            {availableUsers.map((user) => (
-              <Option key={user} value={user}>
-                {user}
-              </Option>
-            ))}
-          </Select>
-          <Button
-            onMouseEnter={() => setHoveredKey(record.key)}
-            onMouseLeave={() => setHoveredKey(null)}
-            onClick={() => handleAssign(record.key)}
-            style={{
-              border: '1px solid #1890ff',
-              color: hoveredKey === record.key ? '#fff' : '#1890ff',
-              backgroundColor: hoveredKey === record.key ? '#1890ff' : '#fff',
-              transition: 'all 0.3s',
-            }}
-          >
-            Assign
-          </Button>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {record.user_id === null ? (
+            <>
+              <Select
+                defaultValue={assignments[record.lead_id] || null}
+                style={{ width: 150 }}
+                placeholder="Select user"
+                onChange={(value) => handleChange(value, record.lead_id)}
+              >
+                {availableUsers.map((user) => (
+                  <Option key={user.id} value={user.id}>
+                    {user.name}
+                  </Option>
+                ))}
+              </Select>
+              <Button
+                onMouseEnter={() => setHoveredKey(record.lead_id)}
+                onMouseLeave={() => setHoveredKey(null)}
+                onClick={() => handleAssign(record.lead_id)}
+                style={{
+                  border: '1px solid #1890ff',
+                  color: hoveredKey === record.lead_id ? '#fff' : '#1890ff',
+                  backgroundColor: hoveredKey === record.lead_id ? '#1890ff' : '#fff',
+                  transition: 'all 0.3s',
+                }}
+              >
+                Assign
+              </Button>
+            </>
+          ) : (
+            <span>
+              {availableUsers.find((user) => user.id === record.user_id)?.name || record.user_id}
+            </span>
+          )}
         </div>
       ),
     },
+
     {
       title: 'Action',
       key: 'action',
