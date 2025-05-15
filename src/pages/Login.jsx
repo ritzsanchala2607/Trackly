@@ -192,6 +192,7 @@ const Login = () => {
           {/* Social Login */}
           <div className="grid grid-cols-2 gap-4 mt-6">
             <button
+              onClick={() => {window.location.href = "http://localhost:3000/auth/google"}}
               className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 text-gray-700"
               type="button"
             >
