@@ -346,10 +346,10 @@ const LeadDetail = () => {
                   Document ID
                 </th>
                 <th style={{ padding: '12px 15px', textAlign: 'left', fontSize: '14px' }}>
-                  Description
+                  File Name
                 </th>
                 <th style={{ padding: '12px 15px', textAlign: 'left', fontSize: '14px' }}>
-                  File Name
+                  Description
                 </th>
                 {/* <th style={{ padding: '12px 15px', textAlign: 'left', fontSize: '14px' }}>
                   Uploaded By
