@@ -26,6 +26,7 @@ import {
   ColorPicker,
   ColorMapping,
   Editor,
+  AddMA,
 } from './pages';
 
 import './App.css';
@@ -64,7 +65,6 @@ const AppContent = () => {
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <div className="flex relative dark:bg-main-dark-bg">
-        
         {/* Settings button */}
         <div className="fixed right-4 bottom-4 z-[1000]">
           <TooltipComponent content="Settings" position="Top">
@@ -101,6 +101,7 @@ const AppContent = () => {
               <Route path="/agency" element={<MarketingAgency />} />
               <Route path="/addlead" element={<AddLeads />} />
               <Route path="/addemployee" element={<AddEmployee />} />
+              <Route path="/addma" element={<AddMA />} />
               <Route path="/leaddetails" element={<LeadDetail leadData={selectedLead} />} />
               <Route path="/temptable" element={<LeadsTable />} />
 

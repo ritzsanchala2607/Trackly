@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -10,28 +11,26 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [token, setToken] = useState('No Token');
   const [role, setRole] = useState('No Role');
-  const [passwordError, setPasswordError] = useState('');
-  const [emailError, setEmailError] = useState('');
 
-  // const fetchSession = async () => {
-  //   try {
-  //     // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
-  //     //   withCredentials: true,
-  //     // });
+  const fetchSession = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
+        withCredentials: true,
+      });
 
-  //     // const freshToken = res.data.token;
-  //     // setToken(freshToken);
+      const freshToken = res.data.token;
+      setToken(freshToken);
 
-  //     const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //       withCredentials: true,
-  //     });
+      const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
+        headers: { Authorization: `Bearer ${freshToken}` },
+        withCredentials: true,
+      });
 
-  //     setRole(userData.data.user.role); // NOTE: use `data.user.role`, not just `user.role`
-  //   } catch (error) {
-  //     setToken('Error');
-  //   }
-  // };
+      setRole(userData.data.user.role); // NOTE: use `data.user.role`, not just `user.role`
+    } catch (error) {
+      setToken('Error');
+    }
+  };
 
   useEffect(() => {
     if (role && role !== 'No Role') {
@@ -42,37 +41,8 @@ const Login = () => {
     }
   }, [role, navigate]);
 
-  const validateForm = () => {
-    let isValid = true;
-
-    // Reset previous errors
-    setPasswordError('');
-    setEmailError('');
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setEmailError('Please enter a valid email address');
-      isValid = false;
-    }
-
-    // Validate password length
-    if (password.length < 6) {
-      setPasswordError('Password must be at least 6 characters long');
-      isValid = false;
-    }
-
-    return isValid;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Validate form before submission
-    if (!validateForm()) {
-      return;
-    }
-
     const payload = {
       email,
       password,
@@ -86,45 +56,23 @@ const Login = () => {
         withCredentials: true,
       })
       .then((res) => {
-        const freshToken = res.data.token;
-        setToken(freshToken);
-        setRole(res.data.user.role);
         // eslint-disable-next-line no-alert
         alert(res.data.message);
         setEmail('');
         setPassword('');
-        // fetchSession();
+        fetchSession();
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
         console.error(err);
         // eslint-disable-next-line no-alert
-        alert('Something went wrong during login.');
+        alert('Something went wrong during registration.');
       });
+    // Handle authentication logic here
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-
-    // Clear error when user starts typing again
-    if (passwordError && newPassword.length >= 6) {
-      setPasswordError('');
-    }
-  };
-
-  const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-
-    // Clear error when user starts typing again
-    if (emailError) {
-      setEmailError('');
-    }
   };
 
   return (
@@ -147,15 +95,12 @@ const Login = () => {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={handleEmailChange}
-                  className={`w-full px-3 py-2 bg-white border ${
-                    emailError ? 'border-red-500' : 'border-gray-300'
-                  } rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="you@example.com"
                   required
                 />
               </label>
-              {emailError && <p className="mt-1 text-sm text-red-600">{emailError}</p>}
             </div>
 
             {/* Password Field */}
@@ -174,10 +119,8 @@ const Login = () => {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={handlePasswordChange}
-                  className={`w-full px-3 py-2 bg-white border ${
-                    passwordError ? 'border-red-500' : 'border-gray-300'
-                  } rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="••••••••"
                   required
                 />
@@ -214,7 +157,6 @@ const Login = () => {
                   )}
                 </button>
               </div>
-              {passwordError && <p className="mt-1 text-sm text-red-600">{passwordError}</p>}
             </div>
 
             {/* Remember Me Checkbox */}
@@ -290,8 +232,8 @@ const Login = () => {
           {/* Sign Up Link */}
           <p className="text-center mt-8 text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <a href="/register" className="text-blue-600 hover:text-blue-800 font-medium">
-              Register
+            <a href="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
+              Sign up
             </a>
           </p>
         </div>

@@ -71,7 +71,7 @@ const Ecommerce = () => {
         <Link to="/addemployee">
           <Button color="white" bgColor={currentColor} text="Add Employee" borderRadius="10px" />
         </Link>
-        <Link to="/addemployee">
+        <Link to="/addma">
           <Button
             color="white"
             bgColor={currentColor}

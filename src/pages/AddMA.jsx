@@ -79,7 +79,8 @@ const AddMA = () => {
         // ✅ Add role: 'Employee' to each row
         const updatedData = jsonData.map((row) => ({
           ...row,
-          role: 'Employee',
+          role: 'Marketing Agency',
+          password: String(row.password),
         }));
 
         console.log('Updated Data:', updatedData);

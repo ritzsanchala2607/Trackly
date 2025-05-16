@@ -1,3 +1,5 @@
+import AddMA from './AddMA';
+
 export { default as Ecommerce } from './Ecommerce';
 export { default as Kanban } from './Kanban';
 export { default as Orders } from './Orders';
@@ -19,3 +21,4 @@ export { default as MarketingAgency } from './MarketingAgency';
 export { default as AddLeads } from './AddLeads';
 export { default as AddEmployee } from './AddEmployee';
 export { default as LeadsTable } from './LeadsTable';
+export { default as AddMA } from './AddMA';

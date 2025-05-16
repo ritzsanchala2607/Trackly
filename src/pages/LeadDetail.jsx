@@ -62,6 +62,20 @@ const LeadDetail = () => {
     setFollowUps([...followUps, { note: '', date: '' }]);
   };
 
+  const changeStatus = (new_staus) => {
+    axios
+      .put(`${process.env.REACT_APP_BASE_URL}/api/lead/${leadData.lead_id}`, {
+        status: new_staus, // Send the status in the request body
+      })
+      .then((response) => {
+        console.log('Status updated successfully:');
+        // Optionally update UI or state here
+      })
+      .catch((error) => {
+        console.error('Error updating status:', error);
+      });
+  };
+
   const handleSaveFollowUp = (index) => {
     const followUp = followUps[index];
     const payload = {
@@ -229,7 +243,7 @@ const LeadDetail = () => {
                     ? '#fff3cd'
                     : leadData.status === 'Converted'
                       ? '#d4edda'
-                      : leadData.status === 'Closed'
+                      : leadData.status === 'Close'
                         ? '#f8d7da'
                         : '#e2e3e5',
                 color:
@@ -237,7 +251,7 @@ const LeadDetail = () => {
                     ? '#856404'
                     : leadData.status === 'Converted'
                       ? '#155724'
-                      : leadData.status === 'Closed'
+                      : leadData.status === 'Close'
                         ? '#721c24'
                         : '#383d41',
                 padding: '3px 8px',
@@ -583,7 +597,7 @@ const LeadDetail = () => {
         </button>
         <button
           type="button"
-          onClick={() => console.log('Converting lead')}
+          onClick={() => changeStatus('Converted')}
           style={{
             padding: '10px 18px',
             backgroundColor: '#28a745',
@@ -595,6 +609,36 @@ const LeadDetail = () => {
           }}
         >
           Convert to Customer
+        </button>
+        <button
+          type="button"
+          onClick={() => changeStatus('Close')}
+          style={{
+            padding: '10px 18px',
+            backgroundColor: '#EE2800FF',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
+          Close Lead
+        </button>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          style={{
+            padding: '10px 18px',
+            backgroundColor: '#2414FFFF',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
+          Print Report
         </button>
       </div>
     </div>
