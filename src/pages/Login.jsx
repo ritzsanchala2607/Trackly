@@ -13,25 +13,25 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
 
-  const fetchSession = async () => {
-    try {
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
-        withCredentials: true,
-      });
+  // const fetchSession = async () => {
+  //   try {
+  //     // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-token`, {
+  //     //   withCredentials: true,
+  //     // });
 
-      const freshToken = res.data.token;
-      setToken(freshToken);
+  //     // const freshToken = res.data.token;
+  //     // setToken(freshToken);
 
-      const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
-        headers: { Authorization: `Bearer ${freshToken}` },
-        withCredentials: true,
-      });
+  //     const userData = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/get-user`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //       withCredentials: true,
+  //     });
 
-      setRole(userData.data.user.role); // NOTE: use `data.user.role`, not just `user.role`
-    } catch (error) {
-      setToken('Error');
-    }
-  };
+  //     setRole(userData.data.user.role); // NOTE: use `data.user.role`, not just `user.role`
+  //   } catch (error) {
+  //     setToken('Error');
+  //   }
+  // };
 
   useEffect(() => {
     if (role && role !== 'No Role') {
@@ -44,35 +44,35 @@ const Login = () => {
 
   const validateForm = () => {
     let isValid = true;
-    
+
     // Reset previous errors
     setPasswordError('');
     setEmailError('');
-    
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError('Please enter a valid email address');
       isValid = false;
     }
-    
+
     // Validate password length
     if (password.length < 6) {
       setPasswordError('Password must be at least 6 characters long');
       isValid = false;
     }
-    
+
     return isValid;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validate form before submission
     if (!validateForm()) {
       return;
     }
-    
+
     const payload = {
       email,
       password,
@@ -86,11 +86,14 @@ const Login = () => {
         withCredentials: true,
       })
       .then((res) => {
+        const freshToken = res.data.token;
+        setToken(freshToken);
+        setRole(res.data.user.role);
         // eslint-disable-next-line no-alert
         alert(res.data.message);
         setEmail('');
         setPassword('');
-        fetchSession();
+        // fetchSession();
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
@@ -107,7 +110,7 @@ const Login = () => {
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-    
+
     // Clear error when user starts typing again
     if (passwordError && newPassword.length >= 6) {
       setPasswordError('');
@@ -117,7 +120,7 @@ const Login = () => {
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
-    
+
     // Clear error when user starts typing again
     if (emailError) {
       setEmailError('');
